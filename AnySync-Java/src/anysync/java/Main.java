@@ -20,6 +20,7 @@ package anysync.java;
 /**
  *
  * @author francescometta
+ * @version 1
  */
 public class Main {
 
@@ -27,7 +28,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // gui for the login form 
+        Login form = new Login();
     }
     
 }
