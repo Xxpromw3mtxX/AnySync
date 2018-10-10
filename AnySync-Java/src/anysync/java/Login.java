@@ -22,6 +22,9 @@ import java.awt.GraphicsConfiguration;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import com.apple.eawt.Application;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 /**
  *
@@ -36,14 +39,16 @@ public class Login extends JFrame{
     String url = "https://anilist.co/api/v2/oauth/authorize?client_id=" + client_id + "&response_type=" + response_type;
     static GraphicsConfiguration gc;
     
-    public Login (String title)
-    {
+    public Login (String title){
         super(title);
-        ImageIcon img = new ImageIcon("/Users/francescometta/Documents/AnySync/AnySync-Java/res/icon.png");
-        setPreferredSize(new Dimension(400, 400));
+        ImageIcon img = new ImageIcon("src/res/icon.png");
+        Application application = Application.getApplication();
+        Image image = Toolkit.getDefaultToolkit().getImage("src/res/icon.png");
+        setPreferredSize(new Dimension(300, 250));
         setDefaultCloseOperation(3);
         setResizable(false);
         setIconImage(img.getImage());
+        application.setDockIconImage(image);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
