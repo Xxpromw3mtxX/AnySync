@@ -30,7 +30,6 @@ public class Main {
     public static void main(String[] args) {
         // gui for the login form 
         Login form = new Login("Login");
-        
     }
     
 }
