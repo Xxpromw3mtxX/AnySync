@@ -17,6 +17,8 @@
 */
 package anysync.java;
 
+import java.io.IOException;
+
 /**
  *
  * @author francescometta
@@ -27,9 +29,10 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // gui for the login form 
-        Login form = new Login("Login");
+        Login form = new Login();
+       
     }
     
 }
