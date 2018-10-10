@@ -17,6 +17,7 @@
 */
 package anysync.java;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -57,7 +58,7 @@ public class Login extends JFrame implements ActionListener {
     public Login ()throws IOException{
         super();
         this.panel = new JPanel();
-        this.username = new JTextField(20);
+        this.username = new JTextField(15);
         this.anilogin = new JButton("Login with AniList");
         this.anylogo = ImageIO.read(new File("src/res/login-form-logo.png"));
         this.anylogoin = new JLabel(new ImageIcon(anylogo));
