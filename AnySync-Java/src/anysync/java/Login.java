@@ -17,7 +17,10 @@
 */
 package anysync.java;
 
+import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -31,5 +34,19 @@ public class Login extends JFrame{
     private String response_type = "token";
     private String token;
     String url = "https://anilist.co/api/v2/oauth/authorize?client_id=" + client_id + "&response_type=" + response_type;
-
+    static GraphicsConfiguration gc;
+    
+    public Login (String title)
+    {
+        super(title);
+        ImageIcon img = new ImageIcon("/Users/francescometta/Documents/AnySync/AnySync-Java/res/icon.png");
+        setPreferredSize(new Dimension(400, 400));
+        setDefaultCloseOperation(3);
+        setResizable(false);
+        setIconImage(img.getImage());
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+    
 }
