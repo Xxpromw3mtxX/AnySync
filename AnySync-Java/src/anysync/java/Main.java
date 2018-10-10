@@ -18,6 +18,7 @@
 package anysync.java;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  *
@@ -29,7 +30,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, URISyntaxException {
         // gui for the login form 
         Login form = new Login();
        
