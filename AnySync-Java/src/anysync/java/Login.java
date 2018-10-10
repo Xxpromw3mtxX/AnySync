@@ -17,7 +17,7 @@
 */
 package anysync.java;
 
-import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -29,39 +29,51 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 /**
  *
  * @author Francesco
  * @version 1
  */
-public class Login extends JFrame implements ActionListener {
+public class Login extends JFrame implements ActionListener{
     //Attributes
     private int client_id = 1231; //AnySync application ID
     private String response_type = "token";
     private String token;
-    String url = "https://anilist.co/api/v2/oauth/authorize?client_id=" + client_id + "&response_type=" + response_type;
+    private String url = "https://anilist.co/api/v2/oauth/authorize?client_id=" + client_id + "&response_type=" + response_type;
+    private URI finalurl;
     private JPanel panel;
     private JTextField username;
     private JButton anilogin; 
     private BufferedImage anylogo;
     private JLabel anylogoin;
+    private Desktop browser;
+    private Document textFieldDoc; 
     
     /**
      * CONSTRUCTOR
      */
-    public Login ()throws IOException{
+    public Login ()throws IOException, URISyntaxException{
         super();
+        this.finalurl = new URI("https://anilist.co/api/v2/oauth/authorize?client_id=" + client_id + "&response_type=" + response_type);
         this.panel = new JPanel();
         this.username = new JTextField(15);
         this.anilogin = new JButton("Login with AniList");
         this.anylogo = ImageIO.read(new File("src/res/login-form-logo.png"));
         this.anylogoin = new JLabel(new ImageIcon(anylogo));
+        this.browser = Desktop.getDesktop();
+        this.textFieldDoc = username.getDocument();
         build();  
         actions();
     }
@@ -89,15 +101,53 @@ public class Login extends JFrame implements ActionListener {
         panel.add(anylogoin);
         panel.add(username);
         username.getText();
-        panel.add(anilogin);
+        panel.add(anilogin); 
     }
+    
+    //Specific document listener
     
     //Action listener
     private void actions() {
         anilogin.addActionListener(this);
     }
+    
+    
     @Override
     public void actionPerformed(ActionEvent act) {
+        //Change if possible to a documentlistener that checks the JTextField everytime
+        username.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                changed();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                changed();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                changed();
+            }
+
+            public void changed() {
+                if (username.getText().equals("")){
+                    anilogin.setEnabled(false);
+                }else{
+                    anilogin.setEnabled(true);
+                }
+            }
+        });
         
-    }    
+        anilogin.addActionListener( new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                try{ 
+                    browser.browse(finalurl);
+                }catch(IOException err){
+                }
+            }
+            
+            
+        });
+        
+        
+    }
+    
+    
 }
