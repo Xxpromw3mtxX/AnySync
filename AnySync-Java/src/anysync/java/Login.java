@@ -101,7 +101,7 @@ public class Login extends JFrame implements ActionListener{
         panel.add(anylogoin);
         panel.add(username);
         username.getText();
-        panel.add(anilogin); 
+        panel.add(anilogin);
     }
     
     //Specific document listener
@@ -137,8 +137,14 @@ public class Login extends JFrame implements ActionListener{
         
         anilogin.addActionListener( new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                try{ 
-                    browser.browse(finalurl);
+                try{
+                    if(username.getText().equals("")){
+                        anilogin.setEnabled(false);
+                    }else{
+                        anilogin.setEnabled(true);
+                        browser.browse(finalurl);
+                    }
+                    
                 }catch(IOException err){
                 }
             }
