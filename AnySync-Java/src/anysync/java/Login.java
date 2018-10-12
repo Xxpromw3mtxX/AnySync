@@ -21,7 +21,11 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import com.apple.eawt.Application;
+/**
+ * Apple library import. 
+ * Disabled on windows version
+*/
+//import com.apple.eawt.Application; 
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -41,7 +45,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 
 /**
- *
  * @author Francesco
  * @version 1
  */
@@ -60,6 +63,7 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
     private JLabel anylogoin;
     private Desktop browser;
     private Document textFieldDoc;
+    
     
     /**
      * CONSTRUCTOR
@@ -87,12 +91,12 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
         setDefaultCloseOperation(3);
         setPreferredSize(new Dimension(300, 180));
         ImageIcon img = new ImageIcon("src/res/icon.png");
-      Application application = Application.getApplication();
+//        Application application = Application.getApplication(); //Apple icon
         Image image = Toolkit.getDefaultToolkit().getImage("src/res/icon.png");
         setIconImage(img.getImage());
-      application.setDockIconImage(image);
+//        application.setDockIconImage(image); //Set Apple dock icon
         setResizable(false);
-        setTitle("AnySync.v1 - Login");
+        setTitle("AnySync - Login(Pre-Alpha)");
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -105,7 +109,6 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
         username.getText();
         panel.add(anilogin);
         changed();
-        
     }
     
     //Checking function
@@ -114,11 +117,17 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
             anilogin.setEnabled(false);
         }else{
             anilogin.setEnabled(true);
-            
         }
     }
     
-    //Document listener
+    //Disable this windows after clicking login
+    private void disableME() throws IOException{
+        setVisible(false);
+        AnySync application = new AnySync();
+    }
+    
+    
+    //DocumentListener + ActionListener
     private void actions() {
         username.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
@@ -144,6 +153,25 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
         anilogin.addActionListener(this);
     }
     
+    @Override
+    public void actionPerformed(ActionEvent act) {
+        anilogin.addActionListener( new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                try{ 
+                    browser.browse(finalurl);
+                    username.setEnabled(false);
+                    if(username.getText().equals("")){ 
+                    }else{
+                        anilogin.setEnabled(false);
+                        disableME();
+                    }
+                }catch(IOException err){
+                }
+            }
+        });
+        
+    }
+    
     //Ignore
     @Override
     public void insertUpdate(DocumentEvent e) {
@@ -160,15 +188,5 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    @Override
-    public void actionPerformed(ActionEvent act) {
-        anilogin.addActionListener( new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                try{ 
-                    browser.browse(finalurl);
-                }catch(IOException err){
-                }
-            }
-        });
-    }
+    
 }
