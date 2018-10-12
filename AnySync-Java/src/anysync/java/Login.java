@@ -19,13 +19,11 @@ package anysync.java;
 
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-//import com.apple.eawt.Application;
+import com.apple.eawt.Application;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +32,6 @@ import java.net.URISyntaxException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -46,7 +43,7 @@ import javax.swing.text.Document;
  * @author Francesco
  * @version 1
  */
-public class Login extends JFrame implements ActionListener{
+public class Login extends JFrame implements DocumentListener{
     //Attributes
     private int client_id = 1231; //AnySync application ID
     private String response_type = "token";
@@ -59,7 +56,7 @@ public class Login extends JFrame implements ActionListener{
     private BufferedImage anylogo;
     private JLabel anylogoin;
     private Desktop browser;
-    private Document textFieldDoc; 
+    private Document textFieldDoc;
     
     /**
      * CONSTRUCTOR
@@ -85,10 +82,10 @@ public class Login extends JFrame implements ActionListener{
         setDefaultCloseOperation(3);
         setPreferredSize(new Dimension(300, 180));
         ImageIcon img = new ImageIcon("src/res/icon.png");
-//      Application application = Application.getApplication();
+      Application application = Application.getApplication();
         Image image = Toolkit.getDefaultToolkit().getImage("src/res/icon.png");
         setIconImage(img.getImage());
-//      application.setDockIconImage(image);
+      application.setDockIconImage(image);
         setResizable(false);
         setTitle("AnySync.v1 - Login");
         pack();
@@ -102,19 +99,21 @@ public class Login extends JFrame implements ActionListener{
         panel.add(username);
         username.getText();
         panel.add(anilogin);
+        changed();
+        
     }
     
-    //Specific document listener
+    //Checking function
+    public void changed() {
+        if (username.getText().equals("")){
+            anilogin.setEnabled(false);
+        }else{
+            anilogin.setEnabled(true);
+        }
+    }
     
-    //Action listener
+    //Document listener
     private void actions() {
-        anilogin.addActionListener(this);
-    }
-    
-    
-    @Override
-    public void actionPerformed(ActionEvent act) {
-        //Change if possible to a documentlistener that checks the JTextField everytime
         username.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 changed();
@@ -125,35 +124,22 @@ public class Login extends JFrame implements ActionListener{
             public void insertUpdate(DocumentEvent e) {
                 changed();
             }
-
-            public void changed() {
-                if (username.getText().equals("")){
-                    anilogin.setEnabled(false);
-                }else{
-                    anilogin.setEnabled(true);
-                }
-            }
         });
-        
-        anilogin.addActionListener( new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                try{
-                    if(username.getText().equals("")){
-                        anilogin.setEnabled(false);
-                    }else{
-                        anilogin.setEnabled(true);
-                        browser.browse(finalurl);
-                    }
-                    
-                }catch(IOException err){
-                }
-            }
-            
-            
-        });
-        
-        
     }
     
-    
+    //Ignore
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
