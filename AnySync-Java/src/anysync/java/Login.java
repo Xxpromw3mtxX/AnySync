@@ -123,6 +123,7 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
     //Disable this windows after clicking login
     private void disableME() throws IOException{
         setVisible(false);
+        dispose();
         AnySync application = new AnySync();
     }
     
@@ -150,11 +151,6 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
             }
         });
         
-        anilogin.addActionListener(this);
-    }
-    
-    @Override
-    public void actionPerformed(ActionEvent act) {
         anilogin.addActionListener( new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 try{ 
@@ -169,7 +165,6 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
                 }
             }
         });
-        
     }
     
     //Ignore
@@ -177,16 +172,13 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
     public void insertUpdate(DocumentEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
     public void removeUpdate(DocumentEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
     public void changedUpdate(DocumentEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
+    } 
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }  
 }
