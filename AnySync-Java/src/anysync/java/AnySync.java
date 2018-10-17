@@ -35,6 +35,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 
 /**
  * @author Francesco
@@ -47,7 +48,9 @@ public class AnySync extends JFrame implements ActionListener{
     //Menu attributes
     private JMenuBar menubar;
     private JMenu menu;
-    private JMenuItem item1;
+    private JMenuItem exit;
+    private JMenuItem update;
+    
     /**
      * CONSTRUCTOR
      */
@@ -57,11 +60,11 @@ public class AnySync extends JFrame implements ActionListener{
         //Menu creation
         this.menubar = new JMenuBar();
         this.menu = new JMenu("File");
-        this.item1 = new JMenuItem ("Exit");
+        this.exit = new JMenuItem ("Exit", new ImageIcon ("src/res/theme/16px/cross.png"));
+        this.update = new JMenuItem("Update", new ImageIcon ("src/res/theme/16px/arrow-circle-315.png"));
         
         build();
         actions();
-        
     }
     
     // Create the window
@@ -88,7 +91,9 @@ public class AnySync extends JFrame implements ActionListener{
         //Add menu to menu bar
         menubar.add(menu);
         //Add items to menu
-        menu.add(item1);
+        menu.add(update);
+        menu.add(new JSeparator()); // SEPARATOR
+        menu.add(exit);
         //Add items to panel
         panel.setLayout(new BorderLayout());
         panel.add(menubar, BorderLayout.NORTH);
@@ -96,16 +101,15 @@ public class AnySync extends JFrame implements ActionListener{
     
     //ActionListener
     private void actions() {
-        item1.addActionListener(this);
-    }
-    
-    @Override
-    public void actionPerformed(ActionEvent act) {
-        item1.addActionListener( new ActionListener(){
+        exit.addActionListener( new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 System.exit(0);
             }
         });
-        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
