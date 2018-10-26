@@ -22,6 +22,7 @@ package anysync.java;
  * Disabled on windows version
 */
 //import com.apple.eawt.Application; 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -65,15 +66,16 @@ public class HttpPost extends JFrame{
     private String secret;
     private String access_token;
     private BufferedReader in;
-    private HttpsURLConnection spost;
     private StringBuffer response;
+    private HttpsURLConnection spost;
     /**
      * CONSTRUCTOR
+     * 
      */
     public HttpPost() throws IOException, URISyntaxException {
         Login variables = new Login();
         this.panel = new JPanel();
-        this.auth_pin_field = new JTextField(15);
+        this.auth_pin_field = new JTextField(20);
         this.anylogo = ImageIO.read(new File("src/res/login-form-logo.png"));
         this.anylogoin = new JLabel(new ImageIcon(anylogo));
         this.httprequest = new JButton("Login request");
@@ -84,15 +86,11 @@ public class HttpPost extends JFrame{
                 + "&client_secret=" + secret + "&redirect_uri=" + variables.redirectURI 
                 + "&code=" + auth_pin_field.toString());
         this.finalurl = new URL(url);
-        this.spost = (HttpsURLConnection) finalurl.openConnection();
-        this.in = new BufferedReader(new InputStreamReader(spost.getInputStream()));
-        this.response = new StringBuffer();
-        build();
-        actions();
+        this.response = new StringBuffer(); 
     }
     
     // Create the window
-    private void build() throws IOException{
+    public void build() throws IOException{
         //Adding the panel to the program
         add(panel);
         init();
@@ -104,10 +102,11 @@ public class HttpPost extends JFrame{
         setIconImage(img.getImage());
 //        application.setDockIconImage(image); //Set Apple dock icon
         setResizable(false);
-        setTitle("AnySync - Pin Auth(Pre-Alpha)");
+        setTitle("AnySync");
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        actions();
     }
     
     // Add things to the window
@@ -133,6 +132,8 @@ public class HttpPost extends JFrame{
     
     // HTTP POST request
     private void sendPost() throws Exception {
+        this.spost = (HttpsURLConnection) finalurl.openConnection();
+        this.in = new BufferedReader(new InputStreamReader(spost.getInputStream()));
         //add reuqest header
         spost.setRequestMethod("POST");
         spost.setRequestProperty("Content-Type", "application/json");
@@ -141,6 +142,14 @@ public class HttpPost extends JFrame{
             response.append(access_token);
         }
         in.close();
+    }
+    
+    //Disable this windows after clicking login
+    private void disableME() throws IOException, URISyntaxException{
+        setVisible(false);
+        dispose();
+        AnySync window = new AnySync();
+        window.build();
     }
     
     //DocumentListener + ActionListener
