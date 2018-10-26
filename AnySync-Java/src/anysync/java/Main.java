@@ -34,6 +34,8 @@ public class Main {
         //Login form
         Login form = new Login();
         form.build();
+        /*AnySync application = new AnySync();
+        application.build();*/
     }
     
 }
