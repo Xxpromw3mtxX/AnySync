@@ -33,7 +33,7 @@ public class Main {
     public static void main(String[] args) throws IOException, URISyntaxException {
         //Login form
         Login form = new Login();
-       
+        form.build();
     }
     
 }
