@@ -41,16 +41,22 @@ import javax.swing.JSeparator;
  * @author Francesco Metta
  * @version 1
  */
-public class AnySync extends JFrame implements ActionListener{
+public class AnySync extends JFrame {
     //Attributes
     private JPanel panel;
+    private JPanel sidebar;
     
     //Menu attributes
     private JMenuBar menubar;
     private JMenu menu;
+    private JMenu help;
+    private JMenu service;
     private JMenuItem exit;
     private JMenuItem update;
-    
+    private JMenuItem about;
+    private JMenuItem issue;
+    private JMenuItem login;
+    private JMenuItem anilist;
     /**
      * CONSTRUCTOR
      */
@@ -60,15 +66,17 @@ public class AnySync extends JFrame implements ActionListener{
         //Menu creation
         this.menubar = new JMenuBar();
         this.menu = new JMenu("File");
+        this.help = new JMenu("Help");
+        this.service = new JMenu("Service");
         this.exit = new JMenuItem ("Exit", new ImageIcon ("src/res/theme/16px/cross.png"));
         this.update = new JMenuItem("Update", new ImageIcon ("src/res/theme/16px/arrow-circle-315.png"));
-        
-        build();
-        actions();
+        this.about = new JMenuItem("About", new ImageIcon("src/res/theme/16px/about.png"));
+        this.issue = new JMenuItem("Report issue...", new ImageIcon("src/res/theme/16px/application-small.png"));
+        this.login = new JMenuItem("Login", new ImageIcon("src/res/theme/16px/if_login_59481.png"));
     }
     
     // Create the window
-    private void build() throws IOException{
+    public void build() throws IOException{
         add(panel);
         init();
         setDefaultCloseOperation(3);
@@ -79,21 +87,29 @@ public class AnySync extends JFrame implements ActionListener{
         setIconImage(img.getImage());
 //        application.setDockIconImage(image); //Set Apple dock icon
         setResizable(false);
-        //setJMenuBar(menubar);
-        setTitle("AnySync (Pre-Alpha)");
+        setTitle("AnySync");
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        actions();
     }
     
     // Add things to the window
     private void init() throws IOException{
         //Add menu to menu bar
         menubar.add(menu);
+        menubar.add(service);
+        menubar.add(help);
         //Add items to menu
-        menu.add(update);
+        menu.add(login);
         menu.add(new JSeparator()); // SEPARATOR
         menu.add(exit);
+        //Add items to help
+        help.add(issue);
+        help.add(new JSeparator()); // SEPARATOR
+        help.add(about);
+        //Add items to Service
+        service.add(update);
         //Add items to panel
         panel.setLayout(new BorderLayout());
         panel.add(menubar, BorderLayout.NORTH);
@@ -106,10 +122,5 @@ public class AnySync extends JFrame implements ActionListener{
                 System.exit(0);
             }
         });
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
