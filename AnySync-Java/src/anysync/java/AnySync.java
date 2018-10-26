@@ -38,7 +38,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 /**
- * @author Francesco
+ * @author Francesco Metta
  * @version 1
  */
 public class AnySync extends JFrame implements ActionListener{

@@ -35,6 +35,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -45,19 +47,19 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 
 /**
- * @author Francesco
+ * @author Francesco Metta
  * @version 1
  */
 public class Login extends JFrame implements DocumentListener, ActionListener{
     //Attributes
-    private int client_id = 1231; //AnySync application ID
-    private String redirectURI;
+    public int client_id = 1231; //AnySync application ID
+    public String redirectURI;
     private String response_type = "code";
     private String token;
     private String url;
     private URI finalurl;
     private JPanel panel;
-    private JTextField username;
+    public JTextField username;
     private JButton anilogin; 
     private BufferedImage anylogo;
     private JLabel anylogoin;
@@ -71,7 +73,8 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
     public Login ()throws IOException, URISyntaxException{
         super();
         this.redirectURI = new String("https://anilist.co/api/v2/oauth/pin");
-        this.finalurl = new URI("https://anilist.co/api/v2/oauth/authorize?client_id=" + client_id + "&redirect_uri=" + redirectURI + "&response_type=" + response_type);
+        this.finalurl = new URI("https://anilist.co/api/v2/oauth/authorize?client_id=" + client_id 
+                + "&redirect_uri=" + redirectURI + "&response_type=" + response_type);
         this.panel = new JPanel();
         this.username = new JTextField(15);
         this.anilogin = new JButton("Login with AniList");
@@ -80,12 +83,12 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
         this.browser = Desktop.getDesktop();
         this.textFieldDoc = username.getDocument();
         
-        build();  
-        actions();
+        //build();  
+        
     }
     
     // Create the window
-    private void build() throws IOException{        
+    public void build() throws IOException{        
         add(panel);
         init();
         setDefaultCloseOperation(3);
@@ -100,6 +103,7 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        actions();
     }
     
     // Add things to the window
@@ -121,10 +125,13 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
     }
     
     //Disable this windows after clicking login
-    private void disableME() throws IOException{
+    private void disableME() throws IOException, URISyntaxException{
         setVisible(false);
         dispose();
-        AnySync application = new AnySync();
+        //AnySync application = new AnySync();
+        /*We recall the HttpPost class that send a POST reuqest to anilist.co db
+        to let us login into the website*/
+        HttpPost request = new HttpPost();
     }
     
     
@@ -162,6 +169,8 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
                         disableME();
                     }
                 }catch(IOException err){
+                } catch (URISyntaxException ex) {
+                    //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
