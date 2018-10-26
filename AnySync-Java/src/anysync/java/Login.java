@@ -50,7 +50,7 @@ import javax.swing.text.Document;
  * @author Francesco Metta
  * @version 1
  */
-public class Login extends JFrame implements DocumentListener, ActionListener{
+public class Login extends JFrame{
     //Attributes
     public int client_id = 1231; //AnySync application ID
     public String redirectURI;
@@ -71,12 +71,12 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
      * CONSTRUCTOR
      */
     public Login ()throws IOException, URISyntaxException{
-        super();
+        
         this.redirectURI = new String("https://anilist.co/api/v2/oauth/pin");
         this.finalurl = new URI("https://anilist.co/api/v2/oauth/authorize?client_id=" + client_id 
                 + "&redirect_uri=" + redirectURI + "&response_type=" + response_type);
         this.panel = new JPanel();
-        this.username = new JTextField(15);
+        this.username = new JTextField(20);
         this.anilogin = new JButton("Login with AniList");
         this.anylogo = ImageIO.read(new File("src/res/login-form-logo.png"));
         this.anylogoin = new JLabel(new ImageIcon(anylogo));
@@ -99,7 +99,7 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
         setIconImage(img.getImage());
 //        application.setDockIconImage(image); //Set Apple dock icon
         setResizable(false);
-        setTitle("AnySync - Login(Pre-Alpha)");
+        setTitle("AnySync");
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -128,10 +128,18 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
     private void disableME() throws IOException, URISyntaxException{
         setVisible(false);
         dispose();
-        //AnySync application = new AnySync();
+        
+        /*-----------------This is active for testing the GUI-----------------*/
+        
+        AnySync application = new AnySync();
+        application.build();
+        
+        /*-------------------This is what should be enabled-------------------*/
+        
         /*We recall the HttpPost class that send a POST reuqest to anilist.co db
         to let us login into the website*/
-        HttpPost request = new HttpPost();
+        /*HttpPost request = new HttpPost();
+        request.build();*/
     }
     
     
@@ -170,24 +178,8 @@ public class Login extends JFrame implements DocumentListener, ActionListener{
                     }
                 }catch(IOException err){
                 } catch (URISyntaxException ex) {
-                    //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
-    }
-    
-    //Ignore
-    @Override
-    public void insertUpdate(DocumentEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    public void removeUpdate(DocumentEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    public void changedUpdate(DocumentEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     } 
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }  
 }
