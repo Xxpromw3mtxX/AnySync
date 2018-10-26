@@ -36,6 +36,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
 
 /**
  * @author Francesco Metta
@@ -57,12 +58,13 @@ public class AnySync extends JFrame {
     private JMenuItem issue;
     private JMenuItem login;
     private JMenuItem anilist;
+    private JSplitPane split;
     /**
      * CONSTRUCTOR
      */
     public AnySync ()throws IOException{
         this.panel = new JPanel();
-        
+        this.sidebar = new JPanel();
         //Menu creation
         this.menubar = new JMenuBar();
         this.menu = new JMenu("File");
@@ -73,11 +75,27 @@ public class AnySync extends JFrame {
         this.about = new JMenuItem("About", new ImageIcon("src/res/theme/16px/about.png"));
         this.issue = new JMenuItem("Report issue...", new ImageIcon("src/res/theme/16px/application-small.png"));
         this.login = new JMenuItem("Login", new ImageIcon("src/res/theme/16px/if_login_59481.png"));
+        this.split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebar, panel){
+            private final int location = 175;
+            {
+                setDividerLocation(location);
+                setDividerSize(1);
+            }
+            @Override
+            public int getDividerLocation() {
+                return location ;
+            }
+            @Override
+            public int getLastDividerLocation() {
+                return location ;
+            }
+        };
     }
     
     // Create the window
     public void build() throws IOException{
-        add(panel);
+        add(split);
+        setJMenuBar(menubar);
         init();
         setDefaultCloseOperation(3);
         setPreferredSize(new Dimension(900, 600));
@@ -110,9 +128,7 @@ public class AnySync extends JFrame {
         help.add(about);
         //Add items to Service
         service.add(update);
-        //Add items to panel
-        panel.setLayout(new BorderLayout());
-        panel.add(menubar, BorderLayout.NORTH);
+
     }
     
     //ActionListener
