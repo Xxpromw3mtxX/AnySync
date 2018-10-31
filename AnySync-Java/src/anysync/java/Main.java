@@ -32,10 +32,12 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, URISyntaxException {
         //Login form
-        Login form = new Login();
+        /*Login form = new Login();
         form.build();
-        /*AnySync application = new AnySync();
+        AnySync application = new AnySync();
         application.build();*/
+        UserCheck uc = new UserCheck();
+        uc.checkDirectory();
     }
     
 }
