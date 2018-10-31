@@ -67,7 +67,7 @@ public class HttpPost extends JFrame{
     private String access_token;
     private BufferedReader in;
     private StringBuffer response;
-    private HttpsURLConnection spost;
+    private HttpsURLConnection askAuth;
     /**
      * CONSTRUCTOR
      * 
@@ -82,9 +82,9 @@ public class HttpPost extends JFrame{
         this.auth_pin = new String();
         this.secret = new String("2sTj9Pv0YAVwFGKqILHGM1Fuqkv6pZ9DRIlurPqg");
         this.url = new String("https://anilist.co/api/v2/oauth/"
-                + "token?grant_type=authorization_code&client_id=" + variables.client_id 
-                + "&client_secret=" + secret + "&redirect_uri=" + variables.redirectURI 
-                + "&code=" + auth_pin_field.toString());
+            + "token?grant_type=authorization_code&client_id=" + variables.client_id 
+            + "&client_secret=" + secret + "&redirect_uri=" + variables.redirectURI 
+            + "&code=" + auth_pin_field.toString());
         this.finalurl = new URL(url);
         this.response = new StringBuffer(); 
     }
@@ -132,12 +132,12 @@ public class HttpPost extends JFrame{
     
     // HTTP POST request
     private void sendPost() throws Exception {
-        this.spost = (HttpsURLConnection) finalurl.openConnection();
-        this.in = new BufferedReader(new InputStreamReader(spost.getInputStream()));
+        this.askAuth = (HttpsURLConnection) finalurl.openConnection();
+        this.in = new BufferedReader(new InputStreamReader(askAuth.getInputStream()));
         //add reuqest header
-        spost.setRequestMethod("POST");
-        spost.setRequestProperty("Content-Type", "application/json");
-        spost.setRequestProperty("Accept", "application/json");         
+        askAuth.setRequestMethod("POST");
+        askAuth.setRequestProperty("Content-Type", "application/json");
+        askAuth.setRequestProperty("Accept", "application/json");         
         while ((access_token = in.readLine()) != null) {
             response.append(access_token);
         }
