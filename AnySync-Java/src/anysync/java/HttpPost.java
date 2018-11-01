@@ -17,7 +17,7 @@
 */
 package anysync.java;
 
-/**
+/**www.j
  * Apple library import. 
  * Disabled on windows version
 */
@@ -48,6 +48,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import org.json.JSONObject;
 
 /**
  * @author Francesco Metta
@@ -68,6 +69,7 @@ public class HttpPost extends JFrame{
     private BufferedReader in;
     private StringBuffer response;
     private HttpsURLConnection askAuth;
+    private JSONObject jsonauth;
     /**
      * CONSTRUCTOR
      * 
@@ -142,6 +144,8 @@ public class HttpPost extends JFrame{
             response.append(access_token);
         }
         in.close();
+        this.jsonauth = new JSONObject(response.toString());
+        access_token = jsonauth.getString("access_token");
     }
     
     //Disable this windows after clicking login
