@@ -17,7 +17,7 @@
 */
 package anysync.java;
 
-/**www.j
+/**
  * Apple library import. 
  * Disabled on windows version
 */
