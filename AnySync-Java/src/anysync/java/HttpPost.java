@@ -70,12 +70,15 @@ public class HttpPost extends JFrame{
     private StringBuffer response;
     private HttpsURLConnection askAuth;
     private JSONObject jsonauth;
+    private Login variables;
+    AnySync window;
     /**
      * CONSTRUCTOR
      * 
      */
     public HttpPost() throws IOException, URISyntaxException {
-        Login variables = new Login();
+        this.window = new AnySync();
+        this.variables = new Login();
         this.panel = new JPanel();
         this.auth_pin_field = new JTextField(20);
         this.anylogo = ImageIO.read(new File("src/res/login-form-logo.png"));
@@ -152,7 +155,6 @@ public class HttpPost extends JFrame{
     private void disableME() throws IOException, URISyntaxException{
         setVisible(false);
         dispose();
-        AnySync window = new AnySync();
         window.build();
     }
     
