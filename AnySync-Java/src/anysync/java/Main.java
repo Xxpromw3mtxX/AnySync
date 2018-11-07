@@ -31,11 +31,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException, URISyntaxException {
-        //Login form
-        /*Login form = new Login();
-        form.build();
-        AnySync application = new AnySync();
-        application.build();*/
+        /*The main call the UserCheck class that controls if exist on the pc the
+        anysync folder with his information in it; if not, it creates it and then
+        run the login gui.*/
         UserCheck uc = new UserCheck();
         uc.checkDirectory();
     }
