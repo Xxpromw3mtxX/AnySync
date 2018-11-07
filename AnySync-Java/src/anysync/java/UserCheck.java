@@ -18,6 +18,9 @@
 package anysync.java;
 
 import java.io.File;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
+
 
 /**
  * @author Francesco Metta
@@ -29,14 +32,16 @@ public class UserCheck {
     private String home;
     private String unix;
     private String win;
-    private File asd; //AnySync director
+    private File source; //AnySync Source File
+    private File dest; //AnySync director
     
     /**
      * CONSTRUCTOR
      */
     public UserCheck() {
-        unix = new String("/anysync");
-        win = new String("\\anysync");
+        source = new File("src/client_info/anysync.bin");
+        unix = new String("/anysync/");
+        win = new String("\\anysync\\");
         /*This line is used for checking the OS on where AnySync is running on*/
         os = System.getProperty("os.name");
         /*This line help us know what is the home path*/
@@ -44,19 +49,22 @@ public class UserCheck {
     }
     
     /*The method checkDirectory know with system you are using and choose what to do*/
-    public void checkDirectory(){
+    public void checkDirectory() throws IOException{
         switch(os){
             case "Mac OS X":
-                asd = new File(home+unix);
-                if(!asd.exists())asd.mkdir();
+                dest = new File(home+unix);
+                if(!dest.exists())dest.mkdir();
+                FileUtils.copyFileToDirectory(source, dest);
             break;
             case "Windows":
-                asd = new File(home+win);
-                if(!asd.exists())asd.mkdir();
+                dest = new File(home+win);
+                if(!dest.exists())dest.mkdir();
+                FileUtils.copyFileToDirectory(source, dest);
             break;
             default:
-                asd = new File(home+unix);
-                if(!asd.exists())asd.mkdir();
+                dest = new File(home+unix);
+                if(!dest.exists())dest.mkdir();
+                FileUtils.copyFileToDirectory(source, dest);
             break;
         }
         
