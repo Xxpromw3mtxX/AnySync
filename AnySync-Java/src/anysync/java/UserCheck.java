@@ -19,6 +19,7 @@ package anysync.java;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import org.apache.commons.io.FileUtils;
 
 
@@ -34,11 +35,12 @@ public class UserCheck {
     private String win;
     private File source; //AnySync Source File
     private File dest; //AnySync director
-    
+    private Login form;
     /**
      * CONSTRUCTOR
      */
-    public UserCheck() {
+    public UserCheck() throws IOException, URISyntaxException {
+        this.form = new Login();
         source = new File("src/client_info/anysync.bin");
         unix = new String("/anysync/");
         win = new String("\\anysync\\");
@@ -49,22 +51,37 @@ public class UserCheck {
     }
     
     /*The method checkDirectory know with system you are using and choose what to do*/
-    public void checkDirectory() throws IOException{
+    public void checkDirectory() throws IOException, URISyntaxException{
         switch(os){
             case "Mac OS X":
                 dest = new File(home+unix);
-                if(!dest.exists())dest.mkdir();
-                FileUtils.copyFileToDirectory(source, dest);
+                if(!dest.exists()){
+                    dest.mkdir();
+                    FileUtils.copyFileToDirectory(source, dest);
+                    form.build();
+                }else{
+                    form.build();
+                }
             break;
             case "Windows":
                 dest = new File(home+win);
-                if(!dest.exists())dest.mkdir();
-                FileUtils.copyFileToDirectory(source, dest);
+                if(!dest.exists()){
+                    dest.mkdir();
+                    FileUtils.copyFileToDirectory(source, dest);
+                    form.build();
+                }else{
+                    form.build();
+                }
             break;
             default:
                 dest = new File(home+unix);
-                if(!dest.exists())dest.mkdir();
-                FileUtils.copyFileToDirectory(source, dest);
+                if(!dest.exists()){
+                    dest.mkdir();
+                    FileUtils.copyFileToDirectory(source, dest);
+                    form.build();
+                }else{
+                    form.build();
+                }
             break;
         }
         
