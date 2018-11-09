@@ -19,6 +19,7 @@ package anysync.java;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import org.apache.commons.io.FileUtils;
 
@@ -33,15 +34,18 @@ public class UserCheck {
     private String home;
     private String unix;
     private String win;
-    private File source; //AnySync Source File
+    private InputStream source; //AnySync Source File 
     private File dest; //AnySync director
     private Login form;
+    private File AnyConfig;
+    
     /**
      * CONSTRUCTOR
      */
     public UserCheck() throws IOException, URISyntaxException {
         this.form = new Login();
-        this.source = new File(this.getClass().getResource("/client_info/anysync.bin").getFile());
+        this.source = getClass().getResourceAsStream("/client_info/anysync.bin");
+        this.AnyConfig = new File("anysync.bin");
         this.unix = new String("/anysync/");
         this.win = new String("\\anysync\\");
         /*This line is used for checking the OS on where AnySync is running on*/
@@ -57,13 +61,15 @@ public class UserCheck {
                 dest = new File(home+unix);
                 if(!dest.exists()){
                     dest.mkdir();
-                    FileUtils.copyFileToDirectory(source, dest);
+                    FileUtils.copyInputStreamToFile(source, AnyConfig);
+                    FileUtils.copyFileToDirectory(AnyConfig, dest);
                     form.build();
                 }
                 if(dest.list().length>0){
                     form.build();
                 }else{
-                    FileUtils.copyFileToDirectory(source, dest);
+                    FileUtils.copyInputStreamToFile(source, AnyConfig);
+                    FileUtils.copyFileToDirectory(AnyConfig, dest);
                     form.build();
                 }
             break;
@@ -71,13 +77,15 @@ public class UserCheck {
                 dest = new File(home+win);
                 if(!dest.exists()){
                     dest.mkdir();
-                    FileUtils.copyFileToDirectory(source, dest);
+                    FileUtils.copyInputStreamToFile(source, AnyConfig);
+                    FileUtils.copyFileToDirectory(AnyConfig, dest);
                     form.build();
                 }
                 if(dest.list().length>0){
                     form.build();
                 }else{
-                    FileUtils.copyFileToDirectory(source, dest);
+                    FileUtils.copyInputStreamToFile(source, AnyConfig);
+                    FileUtils.copyFileToDirectory(AnyConfig, dest);
                     form.build();
                 }
             break;
@@ -85,13 +93,15 @@ public class UserCheck {
                 dest = new File(home+unix);
                 if(!dest.exists()){
                     dest.mkdir();
-                    FileUtils.copyFileToDirectory(source, dest);
+                    FileUtils.copyInputStreamToFile(source, AnyConfig);
+                    FileUtils.copyFileToDirectory(AnyConfig, dest);
                     form.build();
                 }
                 if(dest.list().length>0){
                     form.build();
                 }else{
-                    FileUtils.copyFileToDirectory(source, dest);
+                    FileUtils.copyInputStreamToFile(source, AnyConfig);
+                    FileUtils.copyFileToDirectory(AnyConfig, dest);
                     form.build();
                 }
             break;
