@@ -41,13 +41,13 @@ public class UserCheck {
      */
     public UserCheck() throws IOException, URISyntaxException {
         this.form = new Login();
-        source = new File("src/client_info/anysync.bin");
-        unix = new String("/anysync/");
-        win = new String("\\anysync\\");
+        this.source = new File(this.getClass().getResource("/client_info/anysync.bin").getFile());
+        this.unix = new String("/anysync/");
+        this.win = new String("\\anysync\\");
         /*This line is used for checking the OS on where AnySync is running on*/
-        os = System.getProperty("os.name");
+        this.os = System.getProperty("os.name");
         /*This line help us know what is the home path*/
-        home = System.getProperty("user.home");
+        this.home = System.getProperty("user.home");
     }
     
     /*The method checkDirectory know with system you are using and choose what to do*/
@@ -59,7 +59,11 @@ public class UserCheck {
                     dest.mkdir();
                     FileUtils.copyFileToDirectory(source, dest);
                     form.build();
+                }
+                if(dest.list().length>0){
+                    form.build();
                 }else{
+                    FileUtils.copyFileToDirectory(source, dest);
                     form.build();
                 }
             break;
@@ -69,7 +73,11 @@ public class UserCheck {
                     dest.mkdir();
                     FileUtils.copyFileToDirectory(source, dest);
                     form.build();
+                }
+                if(dest.list().length>0){
+                    form.build();
                 }else{
+                    FileUtils.copyFileToDirectory(source, dest);
                     form.build();
                 }
             break;
@@ -79,7 +87,11 @@ public class UserCheck {
                     dest.mkdir();
                     FileUtils.copyFileToDirectory(source, dest);
                     form.build();
+                }
+                if(dest.list().length>0){
+                    form.build();
                 }else{
+                    FileUtils.copyFileToDirectory(source, dest);
                     form.build();
                 }
             break;
