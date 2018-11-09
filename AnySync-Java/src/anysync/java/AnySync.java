@@ -69,12 +69,12 @@ public class AnySync extends JFrame {
         this.menubar = new JMenuBar();
         this.menu = new JMenu("File");
         this.help = new JMenu("Help");
-        this.service = new JMenu("Service");
-        this.exit = new JMenuItem ("Exit", new ImageIcon ("src/res/theme/16px/cross.png"));
-        this.update = new JMenuItem("Update", new ImageIcon ("src/res/theme/16px/arrow-circle-315.png"));
-        this.about = new JMenuItem("About", new ImageIcon("src/res/theme/16px/about.png"));
-        this.issue = new JMenuItem("Report issue...", new ImageIcon("src/res/theme/16px/application-small.png"));
-        this.login = new JMenuItem("Login", new ImageIcon("src/res/theme/16px/if_login_59481.png"));
+        this.service = new JMenu("Service"); 
+        this.exit = new JMenuItem ("Exit", new ImageIcon (this.getClass().getResource("/res/theme/16px/cross.png")));
+        this.update = new JMenuItem("Update", new ImageIcon (this.getClass().getResource("/res/theme/16px/arrow-circle-315.png")));
+        this.about = new JMenuItem("About", new ImageIcon(this.getClass().getResource("/res/theme/16px/about.png")));
+        this.issue = new JMenuItem("Report issue...", new ImageIcon(this.getClass().getResource("/res/theme/16px/application-small.png")));
+        this.login = new JMenuItem("Login", new ImageIcon(this.getClass().getResource("/res/theme/16px/if_login_59481.png")));
         this.split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sidebar, panel){
             private final int location = 175;
             {
@@ -99,9 +99,9 @@ public class AnySync extends JFrame {
         init();
         setDefaultCloseOperation(3);
         setPreferredSize(new Dimension(900, 600));
-        ImageIcon img = new ImageIcon("src/res/icon.png");
+        ImageIcon img = new ImageIcon(this.getClass().getResource("/res/icon.png")); 
 //        Application application = Application.getApplication(); //Apple icon
-        Image image = Toolkit.getDefaultToolkit().getImage("src/res/icon.png");
+        Image image = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/res/icon.png"));
         setIconImage(img.getImage());
 //        application.setDockIconImage(image); //Set Apple dock icon
         setResizable(false);

@@ -81,7 +81,7 @@ public class HttpPost extends JFrame{
         this.variables = new Login();
         this.panel = new JPanel();
         this.auth_pin_field = new JTextField(20);
-        this.anylogo = ImageIO.read(new File("src/res/login-form-logo.png"));
+        this.anylogo = ImageIO.read(this.getClass().getResource("/res/login-form-logo.png"));
         this.anylogoin = new JLabel(new ImageIcon(anylogo));
         this.httprequest = new JButton("Login request");
         this.auth_pin = new String();
@@ -101,9 +101,9 @@ public class HttpPost extends JFrame{
         init();
         setDefaultCloseOperation(3);
         setPreferredSize(new Dimension(300, 180));
-        ImageIcon img = new ImageIcon("src/res/icon.png");
+        ImageIcon img = new ImageIcon(this.getClass().getResource("/res/icon.png"));
 //        Application application = Application.getApplication(); //Apple icon
-        Image image = Toolkit.getDefaultToolkit().getImage("src/res/icon.png");
+        Image image = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/res/icon.png"));
         setIconImage(img.getImage());
 //        application.setDockIconImage(image); //Set Apple dock icon
         setResizable(false);
