@@ -4,7 +4,7 @@
 
 AnySync is an open-source desktop application for Windows & Mac. It helps you manage your anime library, discover new series, share watched episodes and download new ones. It requires an [AniList.co](https://anilist.co) account.
 
-# Why AnySync?
+## Why AnySync?
 Why not?
 The AnySync idea was born one day, while I wasn't able to find any software like [Taiga] (https://github.com/erengy/taiga), so I decided to create my own version but using Java.
 I'd like to create a multi-platform application that every user could use.
