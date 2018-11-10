@@ -6,7 +6,7 @@ AnySync is an open-source desktop application for Windows & Mac. It helps you ma
 
 ## Why AnySync?
 Why not?
-The AnySync idea was born one day, while I wasn't able to find any software like [Taiga] (https://github.com/erengy/taiga), so I decided to create my own version but using Java.
+The AnySync idea was born one day, while I wasn't able to find any software like [Taiga](https://github.com/erengy/taiga), so I decided to create my own version but using Java.
 I'd like to create a multi-platform application that every user could use.
 
 ## When AnySync will be ready to be released?
