@@ -20,5 +20,5 @@ Sometimes some of my friends help me, even if their help is minor it's appreciat
 ### Bug?
 Yes! In every software there are bugs but right now I'm in search for them, and I'm search for bugs that would not allow the software to run correctly on all the platforms. I'm just ensuring that the class that do the POST request and the class that require to [Anilist](https://anilist.co/) the authorization pin work correctly.
 
-# License
+### License
 AnySync is licensed under [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.html).
