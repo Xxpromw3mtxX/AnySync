@@ -22,7 +22,7 @@ import java.net.URISyntaxException;
 
 /**
  *
- * @author francescometta
+ * @author Francesco Metta
  * @version 1
  */
 public class Main {
