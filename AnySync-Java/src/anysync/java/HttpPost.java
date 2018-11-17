@@ -31,13 +31,12 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.nio.charset.StandardCharsets;
 import javax.imageio.ImageIO;
 import javax.net.ssl.HttpsURLConnection;
 import javax.swing.ImageIcon;
@@ -71,12 +70,63 @@ public class HttpPost extends JFrame{
     private HttpsURLConnection askAuth;
     private JSONObject jsonauth;
     private Login variables;
+    private String secred;
+    private File anyconfig_unix;
+    private File anyconfig_win;
     AnySync window;
+    private FileInputStream fileInputStream;
+    private byte[] bFile;
     /**
      * CONSTRUCTOR
      * 
      */
     public HttpPost() throws IOException, URISyntaxException {
+        this.secret = new String();
+        this.fileInputStream = null;
+        this.secred = new String();
+        this.anyconfig_unix = new File(System.getProperty("user.home")+"/anysync/anysync.bin");
+        this.anyconfig_win = new File(System.getProperty("user.home")+"\\anysync\\anysync.bin");
+        switch(System.getProperty("os.name")){
+            case "Mac OS X":
+                this.bFile = new byte[(int) anyconfig_unix.length()];
+                try{
+                    //convert file into array of bytes
+                    fileInputStream = new FileInputStream(anyconfig_unix);
+                    fileInputStream.read(bFile);
+                    fileInputStream.close();
+                    secred = new String(bFile, StandardCharsets.UTF_8);
+                    secret = secred.substring(4,secred.length());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            break;
+            case "Windows":
+                this.bFile = new byte[(int) anyconfig_win.length()];
+                try{
+                    //convert file into array of bytes
+                    fileInputStream = new FileInputStream(anyconfig_win);
+                    fileInputStream.read(bFile);
+                    fileInputStream.close();
+                    secred = new String(bFile, StandardCharsets.UTF_8);
+                    secret = secred.substring(4,secred.length());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            break;
+            default:
+                this.bFile = new byte[(int) anyconfig_unix.length()];
+                try{
+                    //convert file into array of bytes
+                    fileInputStream = new FileInputStream(anyconfig_unix);
+                    fileInputStream.read(bFile);
+                    fileInputStream.close();
+                    secred = new String(bFile, StandardCharsets.UTF_8);
+                    secret = secred.substring(4,secred.length());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            break;
+        }
         this.window = new AnySync();
         this.variables = new Login();
         this.panel = new JPanel();
@@ -85,7 +135,6 @@ public class HttpPost extends JFrame{
         this.anylogoin = new JLabel(new ImageIcon(anylogo));
         this.httprequest = new JButton("Login request");
         this.auth_pin = new String();
-        this.secret = new String("2sTj9Pv0YAVwFGKqILHGM1Fuqkv6pZ9DRIlurPqg");
         this.url = new String("https://anilist.co/api/v2/oauth/"
             + "token?grant_type=authorization_code&client_id=" + variables.client_id 
             + "&client_secret=" + secret + "&redirect_uri=" + variables.redirectURI 

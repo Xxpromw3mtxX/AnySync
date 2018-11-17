@@ -32,11 +32,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.nio.charset.StandardCharsets;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -52,7 +52,7 @@ import javax.swing.text.Document;
  */
 public class Login extends JFrame{
     //Attributes
-    public int client_id = 1231; //AnySync application ID
+    public int client_id; //AnySync application ID
     public String redirectURI;
     private String response_type = "code";
     private String token;
@@ -65,12 +65,61 @@ public class Login extends JFrame{
     private JLabel anylogoin;
     private Desktop browser;
     private Document textFieldDoc;
-    
+    private String secred;
+    private File anyconfig_unix;
+    private File anyconfig_win;
+    private FileInputStream fileInputStream;
+    private byte[] bFile;
     
     /**
      * CONSTRUCTOR
      */
     public Login ()throws IOException, URISyntaxException{
+        this.fileInputStream = null;
+        this.secred = new String();
+        this.anyconfig_unix = new File(System.getProperty("user.home")+"/anysync/anysync.bin");
+        this.anyconfig_win = new File(System.getProperty("user.home")+"\\anysync\\anysync.bin");
+        switch(System.getProperty("os.name")){
+            case "Mac OS X":
+                this.bFile = new byte[(int) anyconfig_unix.length()];
+                try{
+                    //convert file into array of bytes
+                    fileInputStream = new FileInputStream(anyconfig_unix);
+                    fileInputStream.read(bFile);
+                    fileInputStream.close();
+                    secred = new String(bFile, StandardCharsets.UTF_8);
+                    client_id = Integer.parseInt(secred.substring(0, 4));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            break;
+            case "Windows":
+                this.bFile = new byte[(int) anyconfig_win.length()];
+                try{
+                    //convert file into array of bytes
+                    fileInputStream = new FileInputStream(anyconfig_win);
+                    fileInputStream.read(bFile);
+                    fileInputStream.close();
+                    secred = new String(bFile, StandardCharsets.UTF_8);
+                    client_id = Integer.parseInt(secred.substring(0, 4));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            break;
+            default:
+                this.bFile = new byte[(int) anyconfig_unix.length()];
+                try{
+                    //convert file into array of bytes
+                    fileInputStream = new FileInputStream(anyconfig_unix);
+                    fileInputStream.read(bFile);
+                    fileInputStream.close();
+                    secred = new String(bFile, StandardCharsets.UTF_8);
+                    client_id = Integer.parseInt(secred.substring(0, 4));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            break;
+        }
         
         this.redirectURI = new String("https://anilist.co/api/v2/oauth/pin");
         this.finalurl = new URI("https://anilist.co/api/v2/oauth/authorize?client_id=" + client_id 
@@ -82,9 +131,6 @@ public class Login extends JFrame{
         this.anylogoin = new JLabel(new ImageIcon(anylogo));
         this.browser = Desktop.getDesktop();
         this.textFieldDoc = username.getDocument();
-        
-        //build();  
-        
     }
     
     // Create the window
@@ -181,5 +227,5 @@ public class Login extends JFrame{
                 }
             }
         });
-    } 
+    }
 }
