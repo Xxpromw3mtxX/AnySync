@@ -18,8 +18,11 @@
 package anysync.java;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import org.apache.commons.io.FileUtils;
 
@@ -34,7 +37,8 @@ public class UserCheck {
     private String home;
     private String unix;
     private String win;
-    private InputStream source; //AnySync Source File 
+    private String temp;
+    private InputStream source; //AnySync Source File
     private File dest; //AnySync director
     private Login form;
     private File anyconfig;
@@ -44,14 +48,13 @@ public class UserCheck {
      */
     public UserCheck() throws IOException, URISyntaxException {
         this.form = new Login();
+        this.os = System.getProperty("os.name");
+        this.home = System.getProperty("user.home");
+        this.temp = System.getProperty("java.io.tmpdir");
         this.source = getClass().getResourceAsStream("/client_info/anysync.bin");
-        this.anyconfig = new File("anysync.bin");
+        this.anyconfig = new File(temp+"anysync.bin");
         this.unix = new String("/anysync/");
         this.win = new String("\\anysync\\");
-        /*This line is used for checking the OS on where AnySync is running on*/
-        this.os = System.getProperty("os.name");
-        /*This line help us know what is the home path*/
-        this.home = System.getProperty("user.home");
     }
     
     /*The method checkDirectory know with system you are using and choose what to do*/
